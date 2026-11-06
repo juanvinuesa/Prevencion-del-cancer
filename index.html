@@ -118,14 +118,21 @@
   footer .logos .gob { height: 50px; }
   footer .logos .derma { height: 70px; }
   footer small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 14px; font-weight: 500; }
-  footer .dev { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 9px 18px; border-radius: 999px; background: var(--navy); color: #fff; font-size: 13.5px; font-weight: 700; text-decoration: none; transition: background .2s; }
-  footer .dev:hover, footer .dev:focus-visible { background: var(--coral); }
+  footer .dev { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; padding: 8px 18px 8px 8px; border-radius: 999px; background: var(--navy); color: #fff; font-size: 14px; text-decoration: none; box-shadow: 0 4px 14px rgba(11,58,92,.18); transition: background .2s, transform .2s; }
+  footer .dev .in { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #fff; color: var(--navy); transition: color .2s; }
+  footer .dev .role { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; opacity: .75; }
+  footer .dev .sep { width: 1px; height: 16px; background: rgba(255,255,255,.35); }
+  footer .dev .name { font-weight: 800; white-space: nowrap; }
+  footer .dev:hover, footer .dev:focus-visible { background: var(--coral); transform: translateY(-1px); }
+  footer .dev:hover .in, footer .dev:focus-visible .in { color: var(--coral); }
   footer .dev svg { width: 16px; height: 16px; fill: currentColor; }
 
   @media (max-width: 480px) {
     .logos .inst { height: 52px; }
     .logos .gob { height: 36px; }
     .logos .derma { height: 48px; }
+    footer .dev { gap: 8px; font-size: 13px; padding-right: 14px; }
+    footer .dev .role { font-size: 10px; letter-spacing: .08em; }
     .event-grid { grid-template-columns: 1fr; }
     .tips { grid-template-columns: 1fr; }
     .tip { display: flex; gap: 14px; align-items: center; }
@@ -297,8 +304,10 @@
     </div>
     <small>Esta información no reemplaza la consulta médica. Ante cualquier duda, consultá con un profesional de la salud.</small>
     <a class="dev" href="https://www.linkedin.com/in/juan-francisco-vinuesa-517910177" target="_blank" rel="noopener noreferrer" aria-label="Developer: Juan Francisco Vinuesa en LinkedIn">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-      Developer
+      <span class="in" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
+      <span class="role">Developer</span>
+      <span class="sep" aria-hidden="true"></span>
+      <span class="name">Juan Francisco Vinuesa</span>
     </a>
   </footer>
 
