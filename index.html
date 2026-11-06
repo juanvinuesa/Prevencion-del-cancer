@@ -95,6 +95,26 @@
   .abc h3 { margin: 0 0 2px; font-size: 18px; font-weight: 800; color: var(--navy); }
   .abc h3 strong { color: var(--coral); font-size: 26px; font-weight: 900; margin-right: 2px; }
   .abc p { margin: 0; font-size: 15px; color: var(--muted); font-weight: 500; }
+  .abc { transition: opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1), box-shadow .25s, border-color .25s; transition-delay: calc(var(--i, 0) * 110ms); }
+  .abc.pre { opacity: 0; transform: translateX(-24px); }
+  .abc:hover { border-color: var(--coral); box-shadow: 0 8px 22px rgba(11,58,92,.10); }
+  .abc .art { animation: abc-float 4.5s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -0.9s); transition: scale .3s cubic-bezier(.3,1.6,.5,1); }
+  .abc:nth-child(2) .art { animation-name: abc-wobble; }
+  .abc:nth-child(3) .art { animation-name: abc-hue; }
+  .abc:nth-child(4) .art { animation-name: abc-pulse; }
+  .abc:hover .art { scale: 1.1; }
+  .abc h3 strong { display: inline-block; transition: rotate .3s cubic-bezier(.3,1.6,.5,1), scale .3s cubic-bezier(.3,1.6,.5,1); }
+  .abc.show h3 strong { animation: abc-pop .7s cubic-bezier(.3,1.6,.5,1) both; animation-delay: calc(var(--i, 0) * 110ms + .25s); }
+  .abc:hover h3 strong { rotate: -10deg; scale: 1.2; }
+  @keyframes abc-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+  @keyframes abc-wobble { 0%, 100% { rotate: -4deg; } 50% { rotate: 4deg; } }
+  @keyframes abc-hue { 0%, 100% { filter: none; } 50% { filter: saturate(1.35) brightness(.95); } }
+  @keyframes abc-pulse { 0%, 100% { scale: 1; } 50% { scale: 1.06; } }
+  @keyframes abc-pop { 0% { transform: scale(.3); opacity: 0; } 70% { transform: scale(1.25); opacity: 1; } 100% { transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .abc, .abc .art, .abc h3 strong { animation: none !important; transition: none !important; }
+    .abc.pre { opacity: 1; transform: none; }
+  }
 
   /* Prevention */
   .tips { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -169,7 +189,7 @@
     <div class="event-grid">
       <div class="event-item">
         <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4e8f3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <div><b>Horario</b><span>De 8:00 a 12:00 h</span></div>
+        <div><b>Horario</b><span>De 8:00 hs a 12:00 hs</span></div>
       </div>
       <div class="event-item">
         <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4e8f3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.9.2 5 2.6 5 5.8"/></svg></div>
@@ -261,7 +281,7 @@
       </div>
       <div class="tip">
         <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0b3a5c" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/><path d="M4 20L20 4" stroke="#e8695a" stroke-width="2.2"/></svg></div>
-        <p>Evitá el sol intenso, especialmente <b>entre las 10 y las 16 h</b>.</p>
+        <p>Evitá el sol intenso, especialmente <b>entre las 10 hs y las 16 hs</b>.</p>
       </div>
       <div class="tip">
         <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0b3a5c" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15c3 1.5 17 1.5 20 0"/><path d="M6 15c0-5 2.5-8 6-8s6 3 6 8"/><circle cx="8" cy="20" r="2"/><circle cx="16" cy="20" r="2"/><path d="M10 20h4"/></svg></div>
@@ -312,5 +332,22 @@
   </footer>
 
 </div>
+<script>
+  (function () {
+    var cards = document.querySelectorAll('.abc');
+    cards.forEach(function (c, i) { c.style.setProperty('--i', i); });
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    cards.forEach(function (c) { c.classList.add('pre'); });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.remove('pre');
+        e.target.classList.add('show');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.25 });
+    cards.forEach(function (c) { io.observe(c); });
+  })();
+</script>
 </body>
 </html>
